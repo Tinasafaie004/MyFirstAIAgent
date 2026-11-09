@@ -24,6 +24,7 @@ def get_file_content(working_directory, file_path):
     except Exception as e:
         return f"Error: {e}"
 
+#the description Gemini reads to know teh tools exist
 schema_get_file_content = types.FunctionDeclaration(
     name="get_file_content",
     description="Gets content of a file within the working directory, truncates content at MAX_CHARS characters",

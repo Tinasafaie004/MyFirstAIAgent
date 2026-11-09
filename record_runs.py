@@ -23,7 +23,7 @@ from prompts import system_prompt
 
 ROOT = Path(__file__).resolve().parent
 OUTPUT = ROOT / "demo_runs.json"
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-3.5-flash-lite"
 
 DEMO_PROMPTS = [
     "What files are in the calculator project?",

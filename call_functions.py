@@ -49,6 +49,19 @@ def call_function(function_call:types.FunctionCall, verbose:bool=False)->types.C
     args=dict(function_call.args) if function_call.args else{}
 
     args["working_directory"]= "./calculator"
+    if function_name in ("write_file", "run_python_file"):
+        print(function_name,args)
+        answer=input("Allow? (y/n): ")
+        if answer.strip().lower() not in ("y","yes"):
+            return types.Content(
+                        role="tool",
+                        parts=[
+                            types.Part.from_function_response(
+                                name=function_name,
+                                response={"error": "User rejected this action"},
+                            )
+                        ],
+                    )
     function_result=function_map[function_name](**args)
 
     return types.Content(

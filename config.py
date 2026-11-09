@@ -1,1 +1,1 @@
-MAX_CHARS=10000
+MAX_CHARS=10000  #long files get cut off so they don't overflow AI's memory

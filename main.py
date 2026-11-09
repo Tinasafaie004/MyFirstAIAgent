@@ -23,18 +23,19 @@ def main():
             parts=[types.Part(text=args.user_prompt)]
         )
     ]
-    function_results=[]
+    
     try:
         #response is going to have a response object that contains function_calls
         for i in range (20):
             response = client.models.generate_content(
-                model="gemini-2.5-flash",
+                model="gemini-3.5-flash-lite",
                 contents=messages,
                 config=types.GenerateContentConfig(tools=[availible_functions],system_instruction=system_prompt, temperature=0)
             )
             for c in response.candidates:
                 messages.append(c.content) #this will keep track of the previous responses
             if response.function_calls: #the function_calls property of the response object
+                function_results=[]
                 for function_call in response.function_calls:
                     function_call_result= call_function(function_call, args.verbose)
                     if not function_call_result.parts:
