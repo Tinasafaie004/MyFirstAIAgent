@@ -49,9 +49,7 @@ def main():
                     
                     function_results.append(function_call_result.parts[0])
 
-                    if args.verbose:
-                        print(f"-> {function_call_result.parts[0].function_response.response}")
-
+                    
                 messages.append( #the function also needs to see the reuslt of the function calls
                     types.Content(
                         role="user",
@@ -63,6 +61,12 @@ def main():
             
             else:
                 print(response.text)
+                if args.verbose:
+                     print("User prompt:", args.user_prompt)
+                     print("Prompt tokens:", response.usage_metadata.prompt_token_count)
+                     print("Response tokens:", response.usage_metadata.candidates_token_count)
+
+                
                 return 
         print("max iterations reached")
         exit(1)
@@ -74,13 +78,6 @@ def main():
     #print("Response:")
 
     
-   
-
-    if args.verbose:
-        print("User prompt:", args.user_prompt)
-        print("Prompt tokens:", response.usage_metadata.prompt_token_count)
-        print("Response tokens:", response.usage_metadata.candidates_token_count)
-
  
 if __name__ == "__main__":
     main()
